@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web app</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="/cover.css" rel="stylesheet">
+  </head>
+  <body class="d-flex h-100 text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div class="justify-content-center">
+          <h3 class="float-md-start mb-0" th:text="${title}"></h3>
+        </div>
+      </header>
+
+      <main class="px-3">
+        <h1 th:text="${title}"></h1>
+        <p class="lead" th:text="${description}"></p>
+        <p class="lead d-flex flex-column justify-content-center" style="width: 100%;">
+          <a href="/create-case" class="btn mb-3 btn-lg btn-secondary fw-bold border-white bg-white">Создать тест-кейс</a>
+          <a href="/view-case" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Просмотреть тест-кейсы</a>
+        </p>
+      </main>
+
+      <footer class="mt-auto text-white-50">
+        <a class="text-white-50" href="at3boot.com" style="text-decoration: none;">AT3boot</a>
+      </footer>
+    </div>
+
+  </body>
+</html>
