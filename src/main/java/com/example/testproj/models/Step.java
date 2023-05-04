@@ -1,6 +1,7 @@
 package com.example.testproj.models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 
 @Entity
 @Table(name="step")
@@ -12,9 +13,9 @@ public class Step {
     @Column(name="description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name="id")
-    public Case caseId;
+//    @ManyToOne
+//    @JoinColumn(name="id")
+//    public Case caseId;
 
     public Step() {
 

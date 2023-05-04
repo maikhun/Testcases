@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CaseController {
 
     @Autowired
-    CaseRepo caseRepository;
+    private CaseRepo caseRepository;
 
     //  Страница просмотра тест-кейсов
     @GetMapping("/create-case")
     public String createPage(Model model) {
-
         return "create-case";
     }
 

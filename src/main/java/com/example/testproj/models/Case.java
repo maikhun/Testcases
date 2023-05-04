@@ -1,8 +1,8 @@
 package com.example.testproj.models;
 
+import jakarta.persistence.*;
 import jdk.jfr.Name;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.Queue;
 import java.util.Set;
@@ -16,21 +16,25 @@ public class Case {
     private int id;
 
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "deadline")
     private Date date;
 
-    @OneToMany
-    private Set<Step> steps;
+//    @OneToMany
+//    private Set<Step> steps;
 
-    public Case() {
+    protected Case() {
     }
+
+    public Case(String name) {
+        this.name = name;
+    }
+
     public Case(String name, Date date) {
         this.name = name;
         this.date = date;
-
     }
 
     public Integer getId() {
@@ -46,7 +50,7 @@ public class Case {
     public void setName(String name) {
         this.name = name;
     }
-    public void setDate(String phone) {
+    public void setDate() {
         this.date = date;
     }
 
