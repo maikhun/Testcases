@@ -2,34 +2,28 @@ package com.example.testproj.models;
 
 import jakarta.persistence.*;
 
-
 @Entity
-@Table(name="step")
+@Table(name = "step")
 public class Step {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue()
+    private Long id;
 
-    @Column(name="description")
+    @Column
     private String description;
 
-//    @ManyToOne
-//    @JoinColumn(name="id")
-//    public Case caseId;
-
-    public Step() {
-
+    protected Step() {
     }
 
     public Step(String description) {
         this.description = description;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

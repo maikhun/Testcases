@@ -46,20 +46,17 @@
   <main class="px-3">
     <div class="container-md row">
       <div class="half m-2" style="width: 50%;border-right: 3px solid red">
-        <th:block th:each="user : ${users}">
-          <div class="card d-flex flex-column justify-content-center m-3" style="background: white;">
-            <h6 th:text="${user.getName()}" class="mb-2"></h6>
-            <h6 th:text="${user.getPhone()}"></h6>
-          </div>
-        </th:block>
-      </div>
-      <div class="half m-2" style="width: 50%; border-left: 3px solid green">
-        <th:block th:each="user : ${users}">
-          <div class="card d-flex flex-column justify-content-center m-3" style="background: white;">
-            <h6 th:text="${user.getName()}" class="mb-2"></h6>
-            <h6 th:text="${user.getPhone()}"></h6>
-          </div>
-        </th:block>
+        <table class="text-white">
+          <th:block th:each="oneCase : ${cases}">
+            <tr>
+              <td th:text="${oneCase.getName()}"></td>
+              <td th:text="${oneCase.getDeadline()}"></td>
+            </tr>
+            <tr>
+              <td colspan="2" th:text="${oneCase.getId()}"></td>
+            </tr>
+          </th:block>
+        </table>
       </div>
     </div>
   </main>
