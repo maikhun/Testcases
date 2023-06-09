@@ -1,0 +1,10 @@
+package com.example.demo.entity.enums;
+
+public enum Seriousness {
+    SERIOUSNESS_NOT_INSTALLED,
+    SERIOUSNESS_BLOCKING,
+    SERIOUSNESS_CRITICAL,
+    SERIOUSNESS_SIGNIFICANT,
+    SERIOUSNESS_NO_SIGNIFICANT,
+    SERIOUSNESS_TRIVIAL;
+}
