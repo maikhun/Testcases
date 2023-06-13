@@ -19,6 +19,6 @@ public class StepEntity {
     private String description;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "caseId")
     private CaseEntity caseId;
 }

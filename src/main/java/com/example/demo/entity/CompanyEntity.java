@@ -16,4 +16,7 @@ public class CompanyEntity {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(targetEntity = ProjectEntity.class, fetch = FetchType.EAGER)
+    private List<ProjectEntity> projects;
 }

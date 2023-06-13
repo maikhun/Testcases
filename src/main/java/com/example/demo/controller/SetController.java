@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.SetEntity;
+import com.example.demo.service.CompanyService;
 import com.example.demo.service.ProjectService;
 import com.example.demo.service.SetService;
 import lombok.RequiredArgsConstructor;
@@ -15,16 +16,43 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/project/{id}/sets")
+@RequestMapping("/companies/{idCompany}/projects/{idProject}/sets")
 public class SetController {
 
     private final ProjectService projectService;
-
     private final SetService setService;
+    private final CompanyService companyService;
 
     @GetMapping
-    public String getAllSets() {
+    public String getProjectSets(@PathVariable("idCompany") Long companyId,
+                             @PathVariable("idProject") Long projectId,
+                             Model model) {
+        var project = projectService.findProjectById(projectId).get();
+        var sets = setService.findSetsByProject(project);
+        var company = companyService.findCompanyById(companyId).get();
+        model.addAttribute("company", company);
+        model.addAttribute("project", project);
+        model.addAttribute("sets", sets);
         return "sets";
+    }
+
+    @GetMapping("/create-set")
+    public String getCreateSetPage(@PathVariable("idCompany") Long companyId,
+                                   @PathVariable("idProject") Long projectId, Model model) {
+        var company = companyService.findCompanyById(companyId).get();
+        var project = projectService.findProjectById(projectId).get();
+        model.addAttribute("company", company);
+        model.addAttribute("project", project);
+        return "create-set";
+    }
+
+    @PostMapping("/create-set")
+    public String createSet(@PathVariable("idCompany") Long companyId,
+                            @PathVariable("idProject") Long projectId, SetEntity set) {
+        var project = projectService.findProjectById(projectId).get();
+        if (!setService.createSet(set, project))
+            return "/create-set";
+        return "redirect:/companies/{idCompany}/projects/{idProject}/sets";
     }
 
 

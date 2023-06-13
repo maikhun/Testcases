@@ -20,7 +20,7 @@ public class ProjectEntity {
     @Column(name = "projectDescription")
     private String description;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
     private List<SetEntity> sets = new LinkedList<>();
 
     @ManyToOne

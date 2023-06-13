@@ -15,21 +15,22 @@ public class CompanyController {
 
     private final CompanyService companyService;
 
-    @GetMapping
+    @GetMapping("/companies")
     public String companies(Model model) {
         var companies = companyService.findAllCompanies();
         model.addAttribute("companies", companies);
         return "companies";
     }
 
-    @GetMapping("/companies/create-project")
+    @GetMapping("/companies/create-company")
     public String createCompany() {
         return "create-company";
     }
 
     @PostMapping("/companies/create-company")
     public String createCompany(CompanyEntity company) {
-        companyService.saveCompany(company);
+        if (!companyService.addCompany(company))
+            return "redirect:/create-company";
         return "redirect:/companies";
     }
 

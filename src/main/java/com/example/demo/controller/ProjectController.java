@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.ProjectEntity;
-import com.example.demo.entity.SetEntity;
-import com.example.demo.service.CaseService;
+import com.example.demo.service.CompanyService;
 import com.example.demo.service.ProjectService;
-import com.example.demo.service.SetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,77 +13,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/projects")
+@RequestMapping("/companies/{id}/projects")
 public class ProjectController {
 
     private final ProjectService projectService;
-
-    private final SetService setService;
-
-    private final CaseService caseService;
+    private final CompanyService companyService;
 
     @GetMapping
-    public String projects(Model model) {
-        var projects = projectService.findAll();
+    public String getProjectsPage(@PathVariable("id") Long id, Model model) {
+        var company = companyService.findCompanyById(id).get();
+        var projects = projectService.getAllProjects(company);
+        model.addAttribute("company", company);
         model.addAttribute("projects", projects);
         return "projects";
     }
 
     @GetMapping("/create-project")
-    public String createProjectPage() {
+    public String getCreateProjectPage(@PathVariable("id") Long id, Model model) {
+        var company = companyService.findCompanyById(id).get();
+        model.addAttribute("company", company);
         return "create-project";
     }
 
     @PostMapping("/create-project")
-    public String createProject(ProjectEntity project) {
-        projectService.createProject(project);
-        return "redirect:/projects";
+    public String createProject( @PathVariable("id") Long id, ProjectEntity project) {
+        var company = companyService.findCompanyById(id).get();
+        if (projectService.createProject(project, company) == true)
+            return "redirect:/companies/{id}/projects";
+        return "redirect:create-project";
     }
-
-    @GetMapping("/{id}/sets")
-    public String currentProject(@PathVariable Long id, Model model) {
-        var project = projectService.findProjectById(id).get();
-        var sets = setService.findAllSetsByProjectId(project.getId());
-
-        model.addAttribute("project", project);
-        model.addAttribute("sets", sets);
-        return "sets";
-    }
-
-    @GetMapping("/{id}/sets/create-set")
-    public String createPage(@PathVariable Long id, Model model) {
-        var project = projectService.findProjectById(id).get();
-        model.addAttribute("project", project);
-        return "create-set";
-    }
-
-    @PostMapping("/{id}/sets/create-set")
-    public String createSet(@PathVariable Long id, SetEntity set, Model model) {
-
-        if (set.getProject().getId() != id) return "create-set";
-
-        setService.createSet(set, id);
-        return "redirect:/projects/{id}/sets";
-    }
-
-    @GetMapping("/{project_id}/sets/{set_id}")
-    public String currentProjectSet(@PathVariable(name = "project_id") Long projectId,
-                                    @PathVariable(name = "set_id") Long setId, Model model) {
-        var project = projectService.findProjectById(projectId).get();
-        var set = setService.findSetById(setId).get();
-        var cases = caseService.findAllCasesBySetId(set.getId());
-        model.addAttribute("project", project);
-        model.addAttribute("set", set);
-        model.addAttribute("cases", cases);
-        return "cases";
-    }
-
-    @GetMapping("/projects/{projectId}/sets/{setId}/create-case")
-    public String getCreateCase(@PathVariable Long projectId, @PathVariable Long setId) {
-        var project = projectService.findProjectById(projectId).get();
-        var set = setService.findSetById(setId).get();
-        return "create-case";
-    }
-
 
 }

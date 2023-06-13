@@ -10,19 +10,11 @@
 <body class="bg-dark">
 <header>
     <div class="container-md">
-        <ul class="lead p-1 d-flex justify-content-around" style="list-style: none;">
-            <li class="">
-                <a th:href="@{/projects}">Проекты</a>
-            </li>
-            <li>
-                <a th:href="@{/projects/{id}/sets(id = ${project.getId()})}">Наборы</a>
-            </li>
-        </ul>
     </div>
 </header>
 <section class="d-flex flex-column justify-content-center my-5" style="height: 85%">
     <div class="container-sm">
-        <form class="p-5" th:action="@{/projects/{id}/sets/create-set(id = ${project.getId()})}" method="post" style="width: 60%; margin: 0 auto; border: 1px solid #FFF; border-radius: 15px">
+        <form class="p-5" th:action="@{/companies/{idCompany}/projects/{idProject}/sets/create-set( idCompany = ${company.getId()} ,idProject = ${project.getId()})}" method="post" style="width: 60%; margin: 0 auto; border: 1px solid #FFF; border-radius: 15px">
             <h3 class="text-white text-center mb-4">Создание набора</h3>
             <div class="form-control bg-dark text-white mb-3 d-flex justify-content-around" style="width: 100%;">
                 <label class="lead" style="width: 50%;">Наименование набора: </label>

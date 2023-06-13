@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ProjectRepository extends JpaRepository<ProjectEntity, Long> {
     ProjectEntity findByName(String name);
-    List<ProjectEntity> findAllByCompany(CompanyEntity company);
+    List<ProjectEntity> findProjectsByCompany(CompanyEntity company);
 }

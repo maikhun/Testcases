@@ -11,18 +11,12 @@
   <header>
     <div class="container-md">
       <ul class="lead p-1 d-flex justify-content-around" style="list-style: none;">
-        <li class="">
-          <a th:href="@{/projects}">Проекты</a>
-        </li>
-        <li>
-          <a th:href="@{/sets}">Наборы</a>
-        </li>
       </ul>
     </div>
   </header>
   <section class="d-flex flex-column justify-content-center my-5" style="height: 85%">
     <div class="container-sm">
-      <form class="p-5" th:action="@{/projects/create-project}" method="post" style="width: 60%; margin: 0 auto; border: 1px solid #FFF; border-radius: 15px">
+      <form class="p-5" th:action="@{/companies/{id}/projects/create-project(id = ${company.getId()})}" method="post" style="width: 60%; margin: 0 auto; border: 1px solid #FFF; border-radius: 15px">
         <h3 class="text-white mb-4 text-center">Создание проекта</h3>
         <div class="form-control bg-dark text-white mb-3 d-flex justify-content-around" style="width: 100%;">
           <label class="lead w-50">Наименование проекта: </label>

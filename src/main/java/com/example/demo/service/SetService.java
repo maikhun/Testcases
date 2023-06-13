@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.ProjectEntity;
 import com.example.demo.entity.SetEntity;
 import com.example.demo.repository.ProjectRepository;
 import com.example.demo.repository.SetRepository;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Slf4j
@@ -19,21 +19,26 @@ public class SetService {
     private final SetRepository setRepository;
     private final ProjectRepository projectRepository;
 
-    public List<SetEntity> findAllSetsByProjectId(Long id) {
-        return setRepository.findByProjectId(id);
+    // Список наборов проекта
+    public List<SetEntity> findSetsByProject(ProjectEntity project) {
+        return setRepository.findAllByProject(project);
     }
 
-    public Optional<SetEntity> findSetById(Long id) {
-        return setRepository.findById(id);
-    }
-
-    public boolean createSet(SetEntity set, Long id) {
-        if (setRepository.findByName(set.getName()) != null) return false;
-        var project = projectRepository.findById(id).get();
-        List<SetEntity> setsOfProject = project.getSets();
-        set.setProject(project);
+    // Создание набора проекта
+    public Boolean createSet(SetEntity set, ProjectEntity project) {
+        List<SetEntity> sets = setRepository.findAllByProject(project);
+        if (sets.contains(set)) {
+            return false;
+        }
+        sets.add(set);
+        project.setSets(sets);
         setRepository.save(set);
+        projectRepository.save(project);
         return true;
+    }
+
+    public Optional<SetEntity> getSetById(Long id) {
+        return setRepository.findById(id);
     }
 
 }

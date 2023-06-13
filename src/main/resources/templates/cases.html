@@ -14,18 +14,23 @@
     </ul>
   </div>
 </header>
-<section class="d-flex flex-column justify-content-center" style="height: 85%">
+<section class="p-5 d-flex flex-column justify-content-center" style="height: 85%">
   <div class="container-sm">
-    <h3 class="text-white mx-1" th:text="|${project.getName()} - ${set.getName()}|"></h3>
+    <h3 class="text-white text-center display-6" th:text="|Тест-кейсы - ${set.getName()}|">Наборы</h3>
+    <p class="p-3 text-center" style="border-bottom: 1px solid dimgrey; color: dimgrey" th:text="|Список тест-кейсов|"></p>
     <div class="btn mb-3 d-flex justify-content-end">
-      <a class="btn btn-primary" style="background: #337350; border: #337350" th:href="@{/projects/{projectId}/sets/{setId}/create-case(projectId = ${project.getId()}, setId = ${set.getId()})}">Создать набор</a>
+      <a class="btn btn-primary" style="background: #337350; border: #337350" th:href="@{/companies/{idcompany}/projects/{idproject}/sets/{idset}/cases/create-case(idcompany = ${company.getId()}, idproject = ${project.getId()}, idset = ${set.getId()})}">Создать набор</a>
     </div>
-    <div class="projects">
-      <p class="p-3" style="border-bottom: 3px solid dimgrey; color: dimgrey" th:text="|Список тест-кейсов|"></p>
+    <div class="cases">
       <th:block th:each="case : ${cases}">
-        <div class="d-flex flex-column p-3 justify-content-between" style="border-radius: 0px; border-bottom: 1px solid white">
+        <div class="d-flex flex-column p-3 justify-content-between" style="border-radius: 20px; border-bottom: 1px solid dimgrey">
           <div class="">
             <p class="lead title text-white" th:text="${case.getName()}"></p>
+            <p class="lead px-4 text-white" th:text="|Приоритет: ${case.getPriority()}|"></p>
+            <p class="lead px-4 text-white" th:text="|Серьезность: ${case.getSeriousness()}|"></p>
+          </div>
+          <div class="w-100 d-flex py-2 justify-content-end">
+            <a class="btn btn-primary border-0" style="height: 50%; margin: auto 0;" th:text="|Просмотреть информацию о тест-кейсе|" th:href="@{/companies/{idCompany}/projects/{id}/sets/{setid}/cases/{caseid}(idCompany = ${company.getId()}, id = ${project.getId()}, setid = ${set.getId()}, caseid = ${case.getId()})}"></a>
           </div>
         </div>
       </th:block>

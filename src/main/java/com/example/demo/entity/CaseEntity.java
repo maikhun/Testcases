@@ -17,6 +17,12 @@ public class CaseEntity {
     @Column(name = "caseName")
     private String name;
 
+    @Column(name = "priority")
+    private String priority;
+
+    @Column(name = "seriousness")
+    private String seriousness;
+
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn
     private SetEntity set;
