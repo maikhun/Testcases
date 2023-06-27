@@ -8,31 +8,41 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
+/**
+ * Пользователь
+ * */
 @Entity
 @Table(name = "usr")
 @Data
 public class User implements UserDetails {
 
+    // Идентификатор
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    // Имя
     @Column(name = "firstName", nullable = false, length = 50)
     private String firstName;
 
+    // Фамилия
     @Column(name = "secondName", nullable = false, length = 100)
     private String secondName;
 
+    // Адрес электронной почты
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
+    // Пароль
     @Column(name="password", nullable = false,length = 100)
     private String password;
 
+    // Статус пользователя
     @Column(name = "active")
     private boolean active;
 
+    // Роль пользователя
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)

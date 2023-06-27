@@ -22,17 +22,22 @@ public class SecurityConfig {
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
+                        // Список допустимых адресов для не авторизованных пользователей
                         .requestMatchers("/", "/login", "/registration").permitAll()
+                        // Все остальные адреса требуют авторизации
                         .anyRequest().authenticated()
                 )
-
+                // Конфигурация авторизации
                 .formLogin((form) -> form
+                        // Выбор своей страницы авторизации
                         .loginPage("/login")
+                        // При успешной авторизации перемещает на указанный адрес
                         .successForwardUrl("/companies")
                         .permitAll()
                 )
-
+                // Конфигурация выхода из сессии пользователя
                 .logout((logout) -> logout.permitAll()
+                        // При успешном выходе из сессии перемещает на адрес формы авторизации
                         .logoutSuccessUrl("/login")
                 );
         return http.build();
@@ -43,6 +48,10 @@ public class SecurityConfig {
                 .passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * Метод шифрования данных
+     * @return Захешированное значение
+     * */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(8);
