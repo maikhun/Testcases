@@ -19,17 +19,26 @@ public class SetService {
     private final SetRepository setRepository;
     private final ProjectRepository projectRepository;
 
-    // Список наборов проекта
+    /**
+     * Нахождение всех наборов выбранного проекта
+     * @param project - Выбранный проект
+     * @return Список наборов проекта
+     * */
     public List<SetEntity> findSetsByProject(ProjectEntity project) {
         return setRepository.findAllByProject(project);
     }
 
-    // Создание набора проекта
+    /**
+     * Создание набора в проекте
+     * @param project - Выбранный проект
+     * @return Статус операции
+     * */
     public Boolean createSet(SetEntity set, ProjectEntity project) {
         List<SetEntity> sets = setRepository.findAllByProject(project);
         if (sets.contains(set)) {
             return false;
         }
+        set.setProject(project);
         sets.add(set);
         project.setSets(sets);
         setRepository.save(set);
@@ -37,6 +46,11 @@ public class SetService {
         return true;
     }
 
+    /**
+     * Нахождение набора по идентификатору
+     * @param id - Идентификатор набора
+     * @return Найденный набор или null-значение
+     * */
     public Optional<SetEntity> getSetById(Long id) {
         return setRepository.findById(id);
     }

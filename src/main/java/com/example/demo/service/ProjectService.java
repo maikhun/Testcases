@@ -19,7 +19,12 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final CompanyRepository companyRepository;
 
-    // Создание проекта
+    /**
+     * Создание проекта
+     * @param project - Созданный проект
+     * @param company - Компания, у которой будет создан проект
+     * @return Статус операции
+     * */
     public boolean createProject(ProjectEntity project, CompanyEntity company) {
         List<ProjectEntity> companyProjects = getAllProjects(company);
         if (companyProjects.contains(project) != false)
@@ -32,12 +37,20 @@ public class ProjectService {
         return true;
     }
 
-    // Все проекты определенной компании
+    /**
+     * Нахождение всех проектов компании
+     * @param company - Компания, выбранная пользователем
+     * @return Список проектов компании
+     * */
     public List<ProjectEntity> getAllProjects(CompanyEntity company) {
         return projectRepository.findProjectsByCompany(company);
     }
 
-    // Проект по идентификатору
+    /**
+     * Нахождение проекта по идентификатору
+     * @param id - Идентификатор проекта
+     * @return Найденный проект или null-значение
+     * */
     public Optional<ProjectEntity> findProjectById(Long id) {
         return projectRepository.findById(id);
     }

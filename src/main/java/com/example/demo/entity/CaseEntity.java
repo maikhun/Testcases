@@ -23,6 +23,9 @@ public class CaseEntity {
     @Column(name = "seriousness")
     private String seriousness;
 
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn
     private SetEntity set;

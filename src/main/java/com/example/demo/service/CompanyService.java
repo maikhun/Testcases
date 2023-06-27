@@ -16,12 +16,19 @@ public class CompanyService {
 
     private final CompanyRepository companyRepository;
 
-    // Список всех компаний
+    /**
+     * Нахождение списка компаний
+     * @return Список всех компаний
+     * */
     public List<CompanyEntity> findAllCompanies() {
         return companyRepository.findAll();
     }
 
-    // Добавление компании
+    /**
+     * Добавление компании
+     * @param company - Добавляемая компания
+     * @return Статус операции
+     * */
     public Boolean addCompany(CompanyEntity company) {
         if (companyRepository.findByName(company.getName()) != null)
             return false; // Добавление существующей компании
@@ -29,7 +36,11 @@ public class CompanyService {
         return true; // Добавление новой компании
     }
 
-    // Компания по идентификатору
+    /**
+     * Нахождение компании по идентификатору
+     * @param id - Идентификатор компании
+     * @return Найденная компания или null-значение
+     * */
     public Optional<CompanyEntity> findCompanyById(Long id) {
         return companyRepository.findById(id);
     }

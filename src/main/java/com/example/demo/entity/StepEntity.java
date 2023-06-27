@@ -15,8 +15,11 @@ public class StepEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "factRes")
+    private String factRes;
+
+    @Column(name = "waitRes")
+    private String waitRes;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "caseId")

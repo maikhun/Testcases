@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Регистрация</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="/styles.css">
+</head>
+<body class="bg-light">
+  <section>
+    <div class="container-sm d-flex flex-column justify-content-center" style="height: 90vh;">
+      <form method="post" th:action="@{/registration}" style="margin: 0 auto; width: 60%;">
+        <h3 class="text-dark text-center mb-4">Регистрация</h3>
+        <div class="text-dark mb-3 d-flex justify-content-around" style="width: 100%;">
+          <label class="lead" style="width: 60%;">Email:</label>
+          <input class="lead form-control" type="email" name="email"  placeholder="example@mail.com" />
+        </div>
+        <div class="text-dark mb-3 d-flex justify-content-around" style="width: 100%;">
+          <label class="lead" style="width: 60%;">Фамилия:</label>
+          <input class="lead form-control" type="text" name="secondName"  placeholder="Фамилия" />
+        </div>
+        <div class="text-dark mb-3 d-flex justify-content-around" style="width: 100%;">
+          <label class="lead" style="width: 60%;">Имя:</label>
+          <input class="lead form-control" type="text" name="firstName"  placeholder="Имя" />
+        </div>
+        <div class="text-dark mb-3 d-flex justify-content-around" style="width: 100%;">
+          <label class="lead" style="width: 60%;">Пароль:</label>
+          <input class="lead form-control" type="password" name="password"  placeholder="*******" />
+        </div>
+        <div class="btn-group w-100 pb-2">
+          <input type="submit" class="lead btn btn-success" style="" value="Зарегистрироваться" />
+        </div>
+      </form>
+    </div>
+  </section>
+</body>
+</html>
