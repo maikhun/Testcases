@@ -21,8 +21,8 @@ public class ProjectService {
 
     /**
      * Создание проекта
-     * @param project - Созданный проект
-     * @param company - Компания, у которой будет создан проект
+     * @param project Созданный проект
+     * @param company Компания, у которой будет создан проект
      * @return Статус операции
      * */
     public boolean createProject(ProjectEntity project, CompanyEntity company) {
@@ -39,7 +39,7 @@ public class ProjectService {
 
     /**
      * Нахождение всех проектов компании
-     * @param company - Компания, выбранная пользователем
+     * @param company Компания, выбранная пользователем
      * @return Список проектов компании
      * */
     public List<ProjectEntity> getAllProjects(CompanyEntity company) {
@@ -48,7 +48,7 @@ public class ProjectService {
 
     /**
      * Нахождение проекта по идентификатору
-     * @param id - Идентификатор проекта
+     * @param id Идентификатор проекта
      * @return Найденный проект или null-значение
      * */
     public Optional<ProjectEntity> findProjectById(Long id) {

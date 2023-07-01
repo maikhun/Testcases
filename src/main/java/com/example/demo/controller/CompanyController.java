@@ -21,6 +21,9 @@ public class CompanyController {
     private final CompanyService companyService;
     private final UserService userService;
 
+    /**
+     * GET: /companies - Запрос на страницу, где находится список всех компаний
+     */
     @RequestMapping("/companies")
     public String companies(Principal principal, Model model) {
         var user = userService.findUserByEmail(principal.getName());
@@ -30,16 +33,21 @@ public class CompanyController {
         return "companies";
     }
 
+    /**
+     * GET: /companies/create-company - Запрос на страницу, где происходит добавление новой компании
+     */
     @GetMapping("/companies/create-company")
     public String createCompany() {
         return "create-company";
     }
 
+    /**
+     * POST: /companies/create-company - Запрос на получение данных о добавляющейся компании
+     */
     @PostMapping("/companies/create-company")
     public String createCompany(CompanyEntity company) {
         if (!companyService.addCompany(company))
             return "redirect:/create-company";
         return "redirect:/companies";
     }
-
 }

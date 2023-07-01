@@ -18,7 +18,7 @@ public class UserService {
 
     /**
      * Регистрация пользователя
-     * @param user - Регистрируемый пользователь
+     * @param user Регистрируемый пользователь
      * @return Статус операции
      * */
     public boolean createUser(User user) {
@@ -33,7 +33,7 @@ public class UserService {
 
     /**
      * Нахождение данных пользователя по логину
-     * @param email - Логин пользователя
+     * @param email Логин пользователя
      * @return Пользователь
      * */
     public User findUserByEmail(String email) {

@@ -15,7 +15,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /**
      * Загрузка пользователя по его логину
-     * @param email - Логин пользователя
+     * @param email Логин пользователя
      * @return Данные о пользователе
      * */
     @Override

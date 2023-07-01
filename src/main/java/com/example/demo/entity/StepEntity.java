@@ -32,4 +32,8 @@ public class StepEntity {
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "caseId")
     private CaseEntity caseId;
+
+    public String defaultResult(String factRes) {
+        return (factRes == null) ? "" : factRes;
+    }
 }

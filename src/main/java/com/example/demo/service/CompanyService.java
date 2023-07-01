@@ -26,7 +26,7 @@ public class CompanyService {
 
     /**
      * Добавление компании
-     * @param company - Добавляемая компания
+     * @param company Добавляемая компания
      * @return Статус операции
      * */
     public Boolean addCompany(CompanyEntity company) {
@@ -38,7 +38,7 @@ public class CompanyService {
 
     /**
      * Нахождение компании по идентификатору
-     * @param id - Идентификатор компании
+     * @param id Идентификатор компании
      * @return Найденная компания или null-значение
      * */
     public Optional<CompanyEntity> findCompanyById(Long id) {

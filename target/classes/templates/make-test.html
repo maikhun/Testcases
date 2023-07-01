@@ -21,13 +21,12 @@
                     <label class="lead text-center" style="width: 33%;">Фактический результат</label>
                 </div>
             </div>
-            <th:block th:each="step : ${steps}">
-                <form class="p-1" method="post" th:action="@{/companies/{idCompany}/projects/{idProject}/sets/{idSet}/cases/{idCase}/make-test(idCompany = ${company.getId()}, idProject = ${project.getId()}, idSet = ${set.getId()}, idCase = ${case.getId()})}">
+                <form class="p-1" method="post" th:action="@{/companies/{idCompany}/projects/{idProject}/sets/{idSet}/cases/{idCase}/{stepId}/make-test(idCompany = ${company.getId()}, idProject = ${project.getId()}, idSet = ${set.getId()}, idCase = ${case.getId()}, stepId = ${step.getId()})}">
                     <div class="text-dark p-3 mb-3 d-flex justify-content-around" style="background: whitesmoke; border: 1px solid dimgrey; width: 100%; border-radius: 15px;">
                         <label class="text-center" style="width: 33%;" th:text="|${step.getName()}|">Шаг</label>
                         <label class="text-center"  style="width: 33%;" th:text="|${step.getWaitRes()}|">Ожидаемый результат</label>
                         <div class=""  style="width: 33%;">
-                            <textarea class="form-control text-dark" style="border: 1px solid dimgrey;" id="textAreaExample2" name="factRes" placeholder="Фактический результат..." rows="3"></textarea>
+                            <textarea class="form-control text-dark" style="border: 1px solid dimgrey;" id="factRes" name="factRes" placeholder="Фактический результат..." rows="3"></textarea>
                         </div>
                     </div>
                     <div class="btn-group pb-2 w-100">
@@ -42,7 +41,6 @@
                         </a>
                     </div>
                 </form>
-            </th:block>
         </div>
     </div>
 </section>

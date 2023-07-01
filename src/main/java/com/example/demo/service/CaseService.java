@@ -22,7 +22,7 @@ public class CaseService {
 
     /**
      * Нахождение всех Тест-кейсов по выбранному пользователем набору
-     * @param id - Идентификатор набора
+     * @param id Идентификатор набора
      * @return Список Тест-кейсов
      * */
     public List<CaseEntity> findAllCasesBySetId(Long id) {
@@ -31,8 +31,8 @@ public class CaseService {
 
     /**
      * Создание Тест-кейса
-     * @param caseEntity - Тест-кейс из формы
-     * @param set - Набор, который в данный момент выбран пользователем
+     * @param caseEntity Тест-кейс из формы
+     * @param set Набор, который в данный момент выбран пользователем
      * @return Статус операции
      * */
     public boolean createCase(CaseEntity caseEntity, SetEntity set) {
@@ -52,31 +52,26 @@ public class CaseService {
 
     /**
      * Изменение Тест-кейса
-     * @param caseFromDb - Тест-кейс из БД
-     * @param caseFromForm - Тест-кейс из формы
+     * @param caseFromDb Тест-кейс из БД
+     * @param caseFromForm Тест-кейс из формы
      * @return Статус операции
      * */
     public boolean updateCase(CaseEntity caseFromForm, CaseEntity caseFromDb) {
         if (caseRepository.findById(caseFromDb.getId()).get() == null)
             return false;
-
         if (!caseFromForm.getName().isBlank())
             caseFromDb.setName(caseFromForm.getName());
-
         if (!caseFromForm.getPriority().isBlank())
             caseFromDb.setPriority(caseFromForm.getPriority());
-
         if (!caseFromForm.getSeriousness().isBlank())
             caseFromDb.setSeriousness(caseFromForm.getSeriousness());
-
         caseRepository.save(caseFromDb);
-
         return true;
     }
 
     /**
      * Удаление Тест-кейса
-     * @param caseEntity - Выбранный пользователем Тест-кейс
+     * @param caseEntity Выбранный пользователем Тест-кейс
      * */
     public void deleteCase(CaseEntity caseEntity) {
         SetEntity set = caseEntity.getSet();
@@ -89,7 +84,7 @@ public class CaseService {
 
     /**
      * Нахождение Тест-кейса по идентификатору
-     * @param id - Идентификатор тест-кейса
+     * @param id Идентификатор тест-кейса
      * @return Найденный Тест-кейс или null-значение
      * */
     public Optional<CaseEntity> findCaseById(Long id) {

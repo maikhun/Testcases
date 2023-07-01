@@ -26,6 +26,9 @@ public class SetController {
     private final CompanyService companyService;
     private final UserService userService;
 
+    /**
+     * GET: /sets - Запрос на страницу, где находится список всех наборов проекта
+     */
     @GetMapping
     public String getProjectSets(@PathVariable("idCompany") Long companyId,
                                  @PathVariable("idProject") Long projectId,
@@ -42,6 +45,9 @@ public class SetController {
         return "sets";
     }
 
+    /**
+     * GET: /sets/create-set - Запрос на страницу, где происходит создание нового набора
+     */
     @GetMapping("/create-set")
     public String getCreateSetPage(@PathVariable("idCompany") Long companyId,
                                    @PathVariable("idProject") Long projectId, Model model) {
@@ -52,6 +58,9 @@ public class SetController {
         return "create-set";
     }
 
+    /**
+     * POST: /sets/create-set - Запрос на получение данных о создающемся наборе
+     */
     @PostMapping("/create-set")
     public String createSet(@PathVariable("idCompany") Long companyId,
                             @PathVariable("idProject") Long projectId, SetEntity set) {
@@ -60,6 +69,4 @@ public class SetController {
             return "/create-set";
         return "redirect:/companies/{idCompany}/projects/{idProject}/sets";
     }
-
-
 }

@@ -22,6 +22,10 @@ public class ProjectController {
     private final ProjectService projectService;
     private final CompanyService companyService;
     private final UserService userService;
+
+    /**
+     * GET: /projects - Запрос на страницу, где находится список всех проектов компании
+     */
     @GetMapping
     public String getProjectsPage(@PathVariable("id") Long id, Principal principal, Model model) {
         var company = companyService.findCompanyById(id).get();
@@ -33,6 +37,9 @@ public class ProjectController {
         return "projects";
     }
 
+    /**
+     * GET: /projects/create-project - Запрос на страницу, где происходит создание нового проекта
+     */
     @GetMapping("/create-project")
     public String getCreateProjectPage(@PathVariable("id") Long id, Model model) {
         var company = companyService.findCompanyById(id).get();
@@ -40,6 +47,9 @@ public class ProjectController {
         return "create-project";
     }
 
+    /**
+     * POST: /projects/create-project - Запрос на получение данных о создающемся проекте
+     */
     @PostMapping("/create-project")
     public String createProject( @PathVariable("id") Long id, ProjectEntity project) {
         var company = companyService.findCompanyById(id).get();
@@ -47,5 +57,4 @@ public class ProjectController {
             return "redirect:/companies/{id}/projects";
         return "redirect:create-project";
     }
-
 }

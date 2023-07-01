@@ -21,7 +21,7 @@ public class SetService {
 
     /**
      * Нахождение всех наборов выбранного проекта
-     * @param project - Выбранный проект
+     * @param project Выбранный проект
      * @return Список наборов проекта
      * */
     public List<SetEntity> findSetsByProject(ProjectEntity project) {
@@ -30,7 +30,7 @@ public class SetService {
 
     /**
      * Создание набора в проекте
-     * @param project - Выбранный проект
+     * @param project Выбранный проект
      * @return Статус операции
      * */
     public Boolean createSet(SetEntity set, ProjectEntity project) {
@@ -48,7 +48,7 @@ public class SetService {
 
     /**
      * Нахождение набора по идентификатору
-     * @param id - Идентификатор набора
+     * @param id Идентификатор набора
      * @return Найденный набор или null-значение
      * */
     public Optional<SetEntity> getSetById(Long id) {

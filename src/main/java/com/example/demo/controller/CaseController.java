@@ -6,10 +6,7 @@ import com.example.demo.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -25,6 +22,9 @@ public class CaseController {
     private final StepService stepService;
     private final UserService userService;
 
+    /**
+     * GET: /cases - Запрос на страницу, где располагаются все тест-кейсы
+     */
     @GetMapping
     public String getCases(@PathVariable("idCompany") Long companyId,
                            @PathVariable("idProject") Long projectId,
@@ -42,6 +42,9 @@ public class CaseController {
         return "cases";
     }
 
+    /**
+     * GET: /create-case - Запрос на страницу, где происходит создание тест-кейса
+     */
     @GetMapping("/create-case")
     public String getCreateCasePage(@PathVariable("idCompany") Long companyId,
                                     @PathVariable("idProject") Long projectId,
@@ -56,6 +59,9 @@ public class CaseController {
         return "create-case";
     }
 
+    /**
+     * POST: /create-case - Запрос на прием данных со страницы /create-case
+     */
     @PostMapping("/create-case")
     public String createCase(@PathVariable("idCompany") Long companyId,
                              @PathVariable("idProject") Long projectId,
@@ -74,6 +80,9 @@ public class CaseController {
         return "redirect:/companies/{idCompany}/projects/{idProject}/sets/{idSet}/cases";
     }
 
+    /**
+     * GET: /{idCase} - Запрос на страницу, где находятся данные о тест-кейсе с id = idCase
+     */
     @GetMapping("/{idCase}")
     public String getCaseInfoPage(@PathVariable("idCompany") Long companyId,
                                   @PathVariable("idProject") Long projectId,
@@ -91,6 +100,9 @@ public class CaseController {
         return "case-info";
     }
 
+    /**
+     * GET: /{idCase}/create-step - Запрос на страницу, где происходит создание шага тест-кейса с id = idCase
+     */
     @GetMapping("/{idCase}/create-step")
     public String getCreateStepPage(@PathVariable("idCompany") Long companyId,
                                     @PathVariable("idProject") Long projectId,
@@ -108,6 +120,9 @@ public class CaseController {
         return "create-step";
     }
 
+    /**
+     * POST: /{idCase}/create-step - Запрос на прием данных со страницы /{idCase}/create-step
+     */
     @PostMapping("/{idCase}/create-step")
     public String createStep(@PathVariable("idCompany") Long companyId,
                              @PathVariable("idProject") Long projectId,
@@ -128,6 +143,9 @@ public class CaseController {
         return "redirect:/companies/{idCompany}/projects/{idProject}/sets/{idSet}/cases/{idCase}";
     }
 
+    /**
+     * GET: /{idCase}/update-step - Запрос на страницу, где происходит изменение информации тест-кейса с id = idCase
+     */
     @GetMapping("/{idCase}/update-case")
     public String getUpdateCasePage(@PathVariable("idCompany") Long companyId,
                                     @PathVariable("idProject") Long projectId,
@@ -144,6 +162,9 @@ public class CaseController {
         return "update-case";
     }
 
+    /**
+     * POST: /{idCase}/update-case - Запрос на прием данных со страницы /{idCase}/update-case
+     */
     @PostMapping("/{idCase}/update-case")
     public String updateCase(@PathVariable("idCompany") Long companyId,
                              @PathVariable("idProject") Long projectId,
@@ -163,17 +184,22 @@ public class CaseController {
         return "redirect:/companies/{idCompany}/projects/{idProject}/sets/{idSet}/cases";
     }
 
-    @GetMapping("/{caseId}/make-test")
+    /**
+     * GET: /{caseId}/{stepId}/make-test - Запрос на страницу, где проводится тестирование шага
+     */
+    @GetMapping("/{caseId}/{stepId}/make-test")
     public String getMakeTestPage(@PathVariable("idCompany") Long companyId,
                                   @PathVariable("idProject") Long projectId,
                                   @PathVariable("idSet") Long setId,
-                                  @PathVariable("caseId") Long caseId, Model model) {
+                                  @PathVariable("caseId") Long caseId,
+                                  @PathVariable("stepId") Long stepId,
+                                  Model model) {
         var caseFromDb = caseService.findCaseById(caseId).get();
-        var steps = caseFromDb.getSteps();
         var company = companyService.findCompanyById(companyId).get();
         var project = projectService.findProjectById(projectId).get();
+        var step = stepService.findStep(stepId).get();
         var set = setService.getSetById(setId).get();
-        model.addAttribute("steps", steps);
+        model.addAttribute("step", step);
         model.addAttribute("set", set);
         model.addAttribute("project", project);
         model.addAttribute("company", company);
@@ -181,16 +207,25 @@ public class CaseController {
         return "make-test";
     }
 
-    @PostMapping("/{caseId}/make-test")
+    /**
+     * POST: /{caseId}/{stepId}/make-test - Запрос на прием данных со страницы /{caseId}/{stepId}/make-test
+     */
+    @PostMapping("/{caseId}/{stepId}/make-test")
     public String checkTest(@PathVariable("idCompany") Long companyId,
                             @PathVariable("idProject") Long projectId,
                             @PathVariable("idSet") Long setId,
-                            @PathVariable("caseId") Long caseId, CaseEntity caseEntity,Model model) {
+                            @PathVariable("caseId") Long caseId,
+                            @PathVariable("stepId") Long stepId,
+                            @RequestParam("factRes") String factRes, Model model) {
         var caseFromDb = caseService.findCaseById(caseId).get();
-
-        return "redirect:/companies/{idCompany}/projects/{idProject}/sets/{idSet}/cases";
+        var stepFromDb = stepService.findStep(stepId).get();
+        stepService.makeTest(factRes, stepFromDb);
+        return "redirect:/companies/{idCompany}/projects/{idProject}/sets/{idSet}/cases/{caseId}";
     }
 
+    /**
+     * POST: /{caseId}/delete-case - Запрос на удаление тест-кейса с id = caseId
+     */
     @PostMapping("/{caseId}/delete-case")
     public String deleteCase(@PathVariable("idCompany") Long companyId,
                              @PathVariable("idProject") Long projectId,
